@@ -1,0 +1,10 @@
+.article {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    background-color: red;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    text-align: center;
+}
