@@ -71,3 +71,62 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.inline-card {
+  width: max-content;
+}
+
+.card-items {
+  display: grid;
+  grid-template-columns: repeat(2, 180px);
+  column-gap: 0.5em;
+}
+
+.card-item {
+  padding: 0.5em;
+  border-radius: 0.5em;
+  border: 1px solid teal;
+}
+
+ul {
+  text-align: left;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  padding: 0.5em;
+  border: 1px solid teal;
+  border-radius: 0.5em;
+  margin-bottom: 0.5em;
+  cursor: pointer;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+button {
+  padding: 4px 10px;
+  cursor: pointer;
+  outline: teal;
+}
+
+button:disabled {
+  pointer-events: none;
+}
+
+.purchase-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 300px;
+}
+
