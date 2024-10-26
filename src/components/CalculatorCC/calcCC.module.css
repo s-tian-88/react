@@ -1,0 +1,11 @@
+.calc-container {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #2D9B27;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.calc-input {
+    text-align: center;
+}
