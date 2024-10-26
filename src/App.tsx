@@ -1,8 +1,10 @@
+import { LikesButton } from './components/LikesButton' 
+
 
 function App() {
 
   return (
-    <>Hello</>
+      <LikesButton />
   )
 }
 
