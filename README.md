@@ -1,50 +1,94 @@
-# React + TypeScript + Vite
+# Hooks
+> Функции, которые прзволяют использовать приемущества классовых компонентов\
+    в функциональных компонентах и не делать отдельной конвертации компонентов в класс
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**useState**
+> возвращает переменную для получения значения состояния и\
+    функцию для установки значения состояния
+```tsx
+import { useState } from 'react'
 
-Currently, two official plugins are available:
+const initialState = [] // {}, str, num, ...
+const [news, setNews] = useState(initialState)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+setState(data)
+setState(prevState => {'... do something and return new state ...'});
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+**useEffect**
+> хук для выполнения побочных эффектов. Позволяет синхронизировать\
+    компонент с какой либо системой вне *React*
+```tsx
+import { useEffect } from 'react'
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+useEffect(() => {
+return unsubscribe-func;
+}, [deps])
 ```
+
+**useRef**
+> получение текущего значения
+    ссылка на DOM-элементы
+```tsx
+import { useRef } from 'react';
+
+const nodeRef = useRef();
+const valueRev = useRef();
+valueRev.current = 'some data'
+
+return (
+    <div ref={nodeRef}></div>
+)
+```
+
+**useCallback**
+> мемоизация функции, которая будет сохранять свою ссылку при ререндерах
+```tsx
+const memoizedCallback = useCallback(() => {...}, []);
+```
+
+**useMemo**
+> мемоизация значения, которое не будет пересоздаваться при ререндерах
+```tsx
+const memoizedValue = useMemo(() => {...}, []);
+```
+
+## Context API
+> доступ к данным из любого компонента без необходимости\
+    передавать props через всю цепочку компонентов
+```tsx
+// ./App.tsx
+import { createContext } from 'react';
+
+const AuthContext = createContext({
+        tokem: null,
+        profile: null,
+    });
+
+const App = () => {
+    const [token, setToken] = useState(null);
+    const [profile, setProfile] = useState(null);
+
+    return (
+        <AuthContext.Provider value={{token, setToken, profile, setProfile}}>
+            <Component1 />
+            <Component2 />
+            ...
+        </AuthContext.Provider>
+    )
+}
+```
+```tsx
+// ./Component1.tsx
+
+import { useContext } from 'react';
+import { AuthContext } from './App'
+
+const Component1 = () => {
+    const {token, setToken} = useContext(AuthContext);
+    return (
+        <></>
+    )
+}
+```
+
