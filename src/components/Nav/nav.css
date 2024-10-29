@@ -1,0 +1,11 @@
+.nav {
+    width: 400px;
+    display: flex;
+}
+
+.nav_item {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
