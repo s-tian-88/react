@@ -1,35 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { Home } from './pages/Home';
+import { PostsPage } from './pages/PostsPage';
+import { AddPost } from './pages/AddPost';
+import { Login } from './pages/Login';
+import { Post } from './components/Post';
+import { Layout } from './components/Layout';
+import { ProtectedRoute } from './hoks/ProtectedRoute';
+import { NotFound } from './pages/NotFound';
 
-function App() {
-  const [count, setCount] = useState(0)
+import { Routes, Route, Navigate } from 'react-router-dom'
+
+import { createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
+
+function App () {
+    const routes = createBrowserRouter(
+        createRoutesFromElements(
+            <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="/posts" element={<PostsPage />} />
+                <Route path="posts/:id" element={<Post />} />
+                <Route path="/oldadd" element={<Navigate to='/add' />} /> 
+                <Route path="/add" element={
+                    <ProtectedRoute>
+                        <AddPost />
+                    </ProtectedRoute>
+                } />
+                <Route path="/login" element={<Login />} />
+                <Route path="*" element={<NotFound />} />
+            </Route>
+        )
+    )
+
+    return (
+        <RouterProvider router={ routes } />
+    );
+};
+
+function App2() {
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Routes>
+        <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="/posts" element={<PostsPage />} />
+            <Route path="posts/:id" element={<Post />} />
+            <Route path="/oldadd" element={<Navigate to='/add' />} /> 
+            <Route path="/add" element={
+                <ProtectedRoute>
+                    <AddPost />
+                </ProtectedRoute>
+            } />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
+        </Route>
+    </Routes>
   )
 }
 
 export default App
+export { App2 }
