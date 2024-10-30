@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+
+.usersList {
+    list-style: none;
+    text-align: left;
+}
